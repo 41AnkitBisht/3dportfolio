@@ -14,8 +14,6 @@ const LazyAbout = lazy(() => import("./pages/About"));
 const LazyProjects = lazy(() => import("./pages/Projects"));
 const LazyContact = lazy(() => import("./pages/Contact"));
 
-
-
 const App = () => {
   return (
     <main className="bg-slate-300/20 h-full">
@@ -32,9 +30,9 @@ const App = () => {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/3dportfolio/" element={<Home />} />
           <Route
-            path="about"
+            path="/3dportfolio/about"
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <LazyAbout />
@@ -42,7 +40,7 @@ const App = () => {
             }
           />
           <Route
-            path="projects"
+            path="/3dportfolio/projects"
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <LazyProjects />
@@ -50,7 +48,7 @@ const App = () => {
             }
           />
           <Route
-            path="connect"
+            path="/3dportfolio/connect"
             element={
               <Suspense fallback={<div>Loading...</div>}>
                 <LazyContact />

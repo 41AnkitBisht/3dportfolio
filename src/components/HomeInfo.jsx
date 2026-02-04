@@ -4,23 +4,22 @@ import arrow from "../assets/icons/arrow.svg";
 const renderContent = {
   2: {
     text: "Worked with many companies and picked up many skills along the way",
-    link: "/about",
+    link: "/3dportfolio/about",
     btntext: "Learn more",
   },
   3: {
     text: "Led multiple project to success over the years. Curious about the impact?",
-    link: "/projects",
+    link: "/3dportfolio/projects",
     btntext: "Visit my portfolio",
   },
   4: {
     text: "Need a project done or looking for a dev? I'm just a few keystrokes away",
-    link: "/connect",
+    link: "/3dportfolio/connect",
     btntext: "Let's talk",
   },
 };
 
 const HomeInfo = ({ currentStage }) => {
-
   if (currentStage === 1) {
     return (
       <h1 className="sm:text-xl sm:leading-snug text-center neo-brutalism-blue py-4 px-8 text-white mx-5">
@@ -34,7 +33,10 @@ const HomeInfo = ({ currentStage }) => {
         <p className="font-medium sm:text-xl text-center">
           {renderContent[currentStage].text}
         </p>
-        <Link to={renderContent[currentStage].link} className="neo-brutalism-white neo-btn">
+        <Link
+          to={renderContent[currentStage].link}
+          className="neo-brutalism-white neo-btn"
+        >
           {renderContent[currentStage].btntext}
           <img src={arrow} className="w-4 h-4 object-contain" />
         </Link>
