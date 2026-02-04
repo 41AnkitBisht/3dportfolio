@@ -12,11 +12,89 @@ import { useFrame, useThree } from "@react-three/fiber";
 import islandScene from "../assets/foxs_islands.glb";
 import { a } from "@react-spring/three";
 
-const Island = ({ isRotating, setIsRotating,setCurrentStage, ...props }) => {
+const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
   const islandRef = useRef();
 
   const { gl, viewport } = useThree();
-  const { nodes, materials } = useGLTF(islandScene);
+  const gltf = useGLTF(islandScene, true);
+
+  // Keep original nodes object, but create a safe proxy named `nodes` below so
+  // accessing missing node keys (nodes.MISSING.geometry) won't throw.
+  const _nodes = gltf?.nodes || {};
+  const materials = gltf?.materials;
+
+  // Proxy returns the real node when present, otherwise returns a harmless
+  // placeholder object so property accesses like `.geometry` don't throw.
+  const nodes = new Proxy(_nodes, {
+    get(target, prop) {
+      if (typeof prop === "string" && prop in target) return target[prop];
+      return { geometry: undefined, skeleton: undefined };
+    },
+  });
+
+  const hasNodes = Object.keys(_nodes).length > 0;
+
+  useEffect(() => {
+    if (!hasNodes) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        "Island model: expected nodes not found — some meshes will be skipped. Inspect gltf:",
+        gltf
+      );
+    }
+  }, [hasNodes, gltf]);
+
+  // Allowed node names (from your provided list). Any mesh whose name is not in
+  // this set will be hidden at runtime to emulate "commenting out" missing nodes.
+  const allowedNodeNames = new Set([
+    "Sketchfab_Scene",
+    "pCube11_rocks1_0",
+    "pCube27_phongE1_0",
+    "pCube209_rocks2_0",
+    "pCylinder11_floor_0",
+    "pCylinder21_totem_0",
+    "pCylinder25_roof2_0",
+    "pCylinder139_fox_readyfox_black_0",
+    "pCylinder139_fox_readyfox_body_0",
+    "pCylinder139_fox_readyfox_white_0",
+    "pCylinder149_leika2_0",
+    "pSphere1_ground_0",
+    "polySurface12_home_body_0",
+    "polySurface14_wood2_0",
+    "polySurface16_roof1_0",
+    "polySurface16_roof3_0",
+    "polySurface16_windows_background_0",
+    "polySurface17_windows_frame_0",
+    "polySurface338_totem2_0",
+    "polySurface345_tree_body_0",
+    "polySurface476_rocks_0",
+    "polySurface944_tree_body_0",
+    "polySurface945_tree1_0",
+    "polySurface946_tree2_0",
+    "polySurface947_tree1_0",
+    "polySurface948_tree_body_0",
+    "polySurface949_tree_body_0",
+    "polySurface970_tree1_0",
+    "polySurface989_tree2_0",
+    "polySurface1001_lambert2_0",
+    "polySurface1208_floor2_0",
+    "polySurface1210_shovel2_0",
+    "polySurface1336_wood_0",
+    "polySurface1535_bricks_2_0",
+    "polySurface1541_water_0",
+  ]);
+
+  useEffect(() => {
+    const group = islandRef.current;
+    if (!group) return;
+
+    group.traverse((child) => {
+      if ((child.isMesh || child.isInstancedMesh) && child.name) {
+        // Hide meshes that are not in the allowed list
+        child.visible = allowedNodeNames.has(child.name);
+      }
+    });
+  }, [islandRef, gltf]);
 
   const lastX = useRef(0);
   const rotationSpeed = useRef(0);
@@ -89,7 +167,7 @@ const Island = ({ isRotating, setIsRotating,setCurrentStage, ...props }) => {
     document.addEventListener("keyup", handleKeyUp);
     document.addEventListener("keydown", handleKeyDown);
 
-    return removeEventListener
+    return removeEventListener;
   }, [gl, handlePointerDown, handlePointerUp, handlePointerMove]);
 
   useFrame(() => {
@@ -100,15 +178,13 @@ const Island = ({ isRotating, setIsRotating,setCurrentStage, ...props }) => {
       if (Math.abs(rotationSpeed.current) < 0.01) {
         rotationSpeed.current = 0;
       }
-      //apply slowing down rotation 
+      //apply slowing down rotation
       islandRef.current.rotation.y += rotationSpeed.current;
     } else {
       //get current rotation
       const rotation = islandRef.current.rotation.y;
-
       const normalizedRotation =
         ((rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
-
       // Set the current stage based on the island's orientation
       switch (true) {
         case normalizedRotation >= 5.45 && normalizedRotation <= 5.85:
@@ -128,7 +204,7 @@ const Island = ({ isRotating, setIsRotating,setCurrentStage, ...props }) => {
       }
     }
   });
-  return (
+  return hasNodes ? (
     <a.group ref={islandRef} {...props}>
       <group position={[-1.541, 2.162, 1.136]} scale={[1.501, 1.181, 1.501]}>
         <mesh
@@ -143,12 +219,12 @@ const Island = ({ isRotating, setIsRotating,setCurrentStage, ...props }) => {
           geometry={nodes.polySurface1336_wood_0.geometry}
           material={materials.wood}
         />
-        <mesh
+        {/* <mesh
           castShadow
           receiveShadow
           geometry={nodes.polySurface1467_wood_0.geometry}
           material={materials.wood}
-        />
+        /> */}
       </group>
       <group
         position={[-0.686, 13.571, 2.281]}
@@ -181,33 +257,33 @@ const Island = ({ isRotating, setIsRotating,setCurrentStage, ...props }) => {
         />
       </group>
       <group position={[-0.686, 10.944, 4.73]} scale={[1.951, 2.312, 1.951]}>
-        <mesh
+        {/* <mesh
           castShadow
           receiveShadow
           geometry={nodes.polySurface13_windows_frame_0.geometry}
           material={materials.windows_frame}
-        />
+        /> */}
         <mesh
           castShadow
           receiveShadow
           geometry={nodes.polySurface14_wood2_0.geometry}
           material={materials.wood2}
         />
-        <mesh
+        {/* <mesh
           castShadow
           receiveShadow
           geometry={nodes.polySurface727_wood2_0.geometry}
           material={materials.wood2}
-        />
+        /> */}
       </group>
-      <mesh
+      {/* <mesh
         castShadow
         receiveShadow
         geometry={nodes.polySurface725_totem_0.geometry}
         material={materials.totem}
         position={[7.924, 2.878, -1.278]}
         scale={[0.7, 4.996, 4.21]}
-      />
+      /> */}
       <group position={[5.89, 0, -3.945]} rotation={[0, -0.901, 0]}>
         <mesh
           castShadow
@@ -251,18 +327,18 @@ const Island = ({ isRotating, setIsRotating,setCurrentStage, ...props }) => {
         rotation={[-Math.PI, 0.528, -Math.PI]}
         scale={0.581}
       >
-        <mesh
+        {/* <mesh
           castShadow
           receiveShadow
           geometry={nodes.polySurface986_tree_body_0.geometry}
           material={materials.tree_body}
-        />
-        <mesh
+        /> */}
+        {/* <mesh
           castShadow
           receiveShadow
           geometry={nodes.polySurface987_tree1_0.geometry}
           material={materials.tree1}
-        />
+        /> */}
         <mesh
           castShadow
           receiveShadow
@@ -3518,6 +3594,8 @@ const Island = ({ isRotating, setIsRotating,setCurrentStage, ...props }) => {
         rotation={[-Math.PI, 0.075, -Math.PI]}
       />
     </a.group>
+  ) : (
+    <primitive object={gltf.scene} />
   );
 };
 

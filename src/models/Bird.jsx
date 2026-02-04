@@ -6,10 +6,10 @@ import { useFrame } from "@react-three/fiber";
 
 const Bird = () => {
   const ref = useRef();
-  const { scene, animations } = useGLTF(birdScene);
+  const { scene, animations } = useGLTF(birdScene, true);
   const { actions } = useAnimations(animations, ref);
 
-  useFrame(({clock, camera}) => {
+  useFrame(({ clock, camera }) => {
     // Update the Y position to simulate bird-like motion using a sine wave
     ref.current.position.y = Math.sin(clock.elapsedTime) * 0.2 + 2;
 
