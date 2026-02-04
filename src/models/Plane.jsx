@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import planeScene from "../assets/stylized_ww1_plane.glb";
 import { useAnimations, useGLTF } from "@react-three/drei";
 
-useGLTF.setDecoderPath("/draco/");
+useGLTF.setDecoderPath("draco/");
 
 const Plane = ({ isRotating, ...props }) => {
   const ref = useRef();

@@ -4,7 +4,7 @@ import birdScene from "../assets/phoenix_bird.glb";
 import { useAnimations, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
-useGLTF.setDecoderPath("/draco/");
+useGLTF.setDecoderPath("draco/");
 
 const Bird = () => {
   const ref = useRef();

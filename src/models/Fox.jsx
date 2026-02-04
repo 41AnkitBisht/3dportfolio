@@ -12,7 +12,7 @@
 import React, { useRef, useEffect } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 
-useGLTF.setDecoderPath("/draco/");
+useGLTF.setDecoderPath("draco/");
 
 import scene from "../assets/fox.glb";
 

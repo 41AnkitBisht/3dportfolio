@@ -4,7 +4,7 @@ import skyScene from "../assets/sky.glb";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 
-useGLTF.setDecoderPath("/draco/");
+useGLTF.setDecoderPath("draco/");
 
 const Sky = ({ isRotating }) => {
   const ref = useRef();
