@@ -12,6 +12,8 @@ import { useFrame, useThree } from "@react-three/fiber";
 import islandScene from "../assets/foxs_islands.glb";
 import { a } from "@react-spring/three";
 
+useGLTF.setDecoderPath("/draco/");
+
 const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
   const islandRef = useRef();
 
