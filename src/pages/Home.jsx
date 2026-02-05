@@ -74,7 +74,6 @@ const Home = () => {
             scale={planeScale}
             rotation={[0, 20, 0]}
           />
-           
         </Suspense>
       </Canvas>
     </section>
