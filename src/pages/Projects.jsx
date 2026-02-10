@@ -30,7 +30,7 @@ const Projects = () => {
                 <div className={`btn-back rounded-xl ${project.theme}`} />
                 <div className="btn-front rounded-xl flex justify-center items-center">
                   <img
-                    src={project.icon}
+                    src={project.iconUrl}
                     alt="Project Icon"
                     className="w-1/2 h-1/2 object-contain"
                   />
@@ -38,18 +38,24 @@ const Projects = () => {
               </div>
 
               <div className="mt-5 flex flex-col">
-                <h4 className="text-2xl font-poppins font-semibold">{project.name}</h4>
+                <h4 className="text-2xl font-poppins font-semibold">
+                  {project.name}
+                </h4>
                 <p className="mt-2 text-slate-500">{project.description}</p>
                 <div className="mt-5 flex items-center gap-2 font-poppins">
                   <Link
-                  to={project.link}
+                    to={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-semibold text-blue-600"
                   >
                     Live Link
                   </Link>
-                  <img src={arrow} alt="arrow" className="h-4 w-4 object-contain" />
+                  <img
+                    src={arrow}
+                    alt="arrow"
+                    className="h-4 w-4 object-contain"
+                  />
                 </div>
               </div>
             </div>
