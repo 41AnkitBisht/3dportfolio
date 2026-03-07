@@ -14,6 +14,7 @@ An immersive **3D personal portfolio** built to showcase my experience as a Seni
 - Modern glassmorphism + dark theme UI
 - Lightning-fast performance with Vite
 
+
 ## 🛠 Tech Stack
 - **Frontend**: React 18 + Vite
 - **3D**: React Three Fiber + Drei + React Spring Three
@@ -27,7 +28,7 @@ An immersive **3D personal portfolio** built to showcase my experience as a Seni
 **https://41ankitbisht.github.io/3dportfolio/**
 
 ## 📸 Screenshots
-*(Add 2-3 screenshots here after uploading them to the repo)*
+<img width="1917" height="934" alt="Screenshot 2026-03-07 194130" src="https://github.com/user-attachments/assets/59bddfa8-6e78-4387-adb0-af2131cb5052" />
 
 ## 🛠 How to Run Locally
 ```bash
