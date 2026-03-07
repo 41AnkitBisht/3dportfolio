@@ -1,8 +1,37 @@
-# React + Vite
+# 3D Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-00C3FF?style=for-the-badge)](https://41ankitbisht.github.io/3dportfolio/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
+[![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js)](https://threejs.org/)
 
-Currently, two official plugins are available:
+An immersive **3D personal portfolio** built to showcase my experience as a Senior Frontend Engineer. Smooth animations, interactive 3D elements, and a modern design that stands out.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
+- Fully interactive 3D scene with React Three Fiber
+- Smooth camera controls and scroll animations using React Spring
+- Responsive timeline of professional experience
+- Working contact form (powered by EmailJS)
+- Modern glassmorphism + dark theme UI
+- Lightning-fast performance with Vite
+
+## 🛠 Tech Stack
+- **Frontend**: React 18 + Vite
+- **3D**: React Three Fiber + Drei + React Spring Three
+- **Styling**: Tailwind CSS + PostCSS
+- **Routing**: React Router DOM
+- **Animations**: React Spring
+- **Contact**: EmailJS
+- **Deployment**: GitHub Pages
+
+## 🚀 Live Demo
+**https://41ankitbisht.github.io/3dportfolio/**
+
+## 📸 Screenshots
+*(Add 2-3 screenshots here after uploading them to the repo)*
+
+## 🛠 How to Run Locally
+```bash
+git clone https://github.com/41AnkitBisht/3dportfolio.git
+cd 3dportfolio
+npm install
+npm run dev
